@@ -1,0 +1,26 @@
+a:hover {
+    color: #000 !important;
+    opacity: 0.9;
+}
+
+h2.title {
+    color: #000
+}
+
+p.desc.desc1 {
+    max-height: 45px;
+}
+
+.main-content {
+    position: relative;
+}
+
+@media screen and (max-width:767px) {
+    h2.title {
+        padding-top: 7px;
+    }
+    .author-date {
+        position: relative;
+        padding-bottom: 10px;
+    }
+}

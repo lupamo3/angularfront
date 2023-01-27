@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default main-header">
+    <div class="container header-main">
+        <div class="navbar-header">
+            <a routerLink="/" class="navbar-brand">SHOP SOKO</a>
+
+            <div class="footer-icons">
+
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myHeader">
+            <ul class="nav navbar-nav">
+
+                <li routerLinkActive="active">
+                    <a routerLink="/myposts">View Employees</a>
+                </li>
+                <li routerLinkActive="active" >
+                    <a routerLink='/myprofile'>Create Employee</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+<div class="container middle">
+
+    <!-- <ngx-spinner bdColor="rgb(221,214,243,0.5)" size="medium" type="ball-spin-fade" color="#42275a" fullScreen=" true">
+      <p style="color: Black;font-size: 20px; font-weight: 600;">Loading News... </p>
+  </ngx-spinner> -->
+    <router-outlet></router-outlet>
+</div>
+
+
+
+<div class="container" >
+    <footer class="fadeInUp col-md-12">
+
+
+
+
+    </footer>
+</div>
+
+<h5 *ngIf="!isloading" class="text-center copyright"> © Copyrights reserved by Norbert Anjichi</h5>

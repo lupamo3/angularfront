@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="col-md-12 col-sm-9 col-xs-12">
+    <form class="create-form" [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+
+      <div class="col-md-4 col-sm-3 col-xs-12">
+        <!-- <input type="file" multiple accept="image/x-png,image/gif,image/jpeg" class="form-control" formControlName="imgurl">
+                <img alt="" id="blah" height="200" width="200" class="img-rounded" [src]="imageSrc || 'http://placehold.it/180'" alt="your image" />
+
+                <div>{{ uploadPercent }}</div>
+                <a href="{{downloadURL}}"> Click Here To View Your Image</a> -->
+      </div>
+      <br>
+      <div class="col-md-8 col-xs-12">
+
+
+        <div class="form-group ">
+          <label for="country">Country : </label>
+          <select formControlName="country" (change)="onCountryChange()">
+            <option value="kenya"> Kenya</option>
+            <option value="uganda"> Uganda</option>
+            <option value="tanzania"> Tanzania</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="firstName">First Name: </label>
+          <div class="input-style">
+            <input class="form-control" type="text" placeholder="first name" formControlName="firstName">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <div class="input-style">
+            <input type="text" class="form-control" type="text" placeholder="last name" formControlName="lastName">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth:</label>
+          <div class="input-style">
+            <input type="date" class="form-control" placeholder="date of birth" formControlName="dateOfBirth">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="holidayAllowance">Holiday Allowance:</label>
+          <div class="input-style">
+            <input type="number" class="form-control" placeholder="1" formControlName="holidayAllowance">
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
+          <label for="maritalStatus">Marital Status:</label>
+          <div class="input-style">
+            <input type="text" class="form-control" placeholder="married" formControlName="maritalStatus">
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
+          <label for="idNumber">ID Number:</label>
+          <div class="input-style">
+            <input type="text" class="form-control" placeholder="10041987" formControlName="idNumber">
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="form.get('country').value === 'uganda'">
+          <label for="maritalStatus">Marital Status:</label>
+          <div class="input-style">
+            <input type="text" class="form-control" placeholder="married" formControlName="maritalStatus">
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="form.get('country').value === 'uganda'">
+          <label for="numberOfChildren">Number of Children:</label>
+          <div class="input-style">
+            <input type="number" class="form-control" placeholder="1" formControlName="numberOfChildren">
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
+          <label for="workingHours">Working Hours:</label>
+          <div class="input-style">
+            <input type="text" class="form-control" placeholder="1" formControlName="workingHours">
+          </div>
+        </div>
+
+
+        <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
+          <label for="religion">Religion:</label>
+          <div class="input-style">
+            <input type="text" class="form-control" placeholder="C" formControlName="religion">
+          </div>
+        </div>
+
+        <div class="row submit-button-container">
+          <div class="col-md-4">
+            <button class="btn btn-primary submit-button" color="primary" type="submit"
+              >Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
