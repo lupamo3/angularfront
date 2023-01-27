@@ -1,13 +1,8 @@
 <div class="container">
   <div class="col-md-12 col-sm-9 col-xs-12">
-    <form class="create-form" [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+    <form class="create-form" [formGroup]="form" >
 
       <div class="col-md-4 col-sm-3 col-xs-12">
-        <!-- <input type="file" multiple accept="image/x-png,image/gif,image/jpeg" class="form-control" formControlName="imgurl">
-                <img alt="" id="blah" height="200" width="200" class="img-rounded" [src]="imageSrc || 'http://placehold.it/180'" alt="your image" />
-
-                <div>{{ uploadPercent }}</div>
-                <a href="{{downloadURL}}"> Click Here To View Your Image</a> -->
       </div>
       <br>
       <div class="col-md-8 col-xs-12">
@@ -15,7 +10,7 @@
 
         <div class="form-group ">
           <label for="country">Country : </label>
-          <select formControlName="country" (change)="onCountryChange()">
+          <select class="form-control" formControlName="country" (change)="onCountryChange()">
             <option value="kenya"> Kenya</option>
             <option value="uganda"> Uganda</option>
             <option value="tanzania"> Tanzania</option>
@@ -53,9 +48,10 @@
 
         <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
           <label for="maritalStatus">Marital Status:</label>
-          <div class="input-style">
-            <input type="text" class="form-control" placeholder="married" formControlName="maritalStatus">
-          </div>
+          <select class="form-control" formControlName="maritalStatus" placeholder="married">
+            <option value="Single"> Single</option>
+            <option value="Married"> Married</option>
+            </select>
         </div>
 
 
@@ -69,9 +65,10 @@
 
         <div class="form-group" *ngIf="form.get('country').value === 'uganda'">
           <label for="maritalStatus">Marital Status:</label>
-          <div class="input-style">
-            <input type="text" class="form-control" placeholder="married" formControlName="maritalStatus">
-          </div>
+          <select class="form-control" formControlName="maritalStatus" placeholder="Married">
+            <option value="Single"> Single</option>
+            <option value="Married"> Married</option>
+            </select>
         </div>
 
 
@@ -86,21 +83,21 @@
         <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
           <label for="workingHours">Working Hours:</label>
           <div class="input-style">
-            <input type="text" class="form-control" placeholder="1" formControlName="workingHours">
+            <input type="number" class="form-control" placeholder="1" formControlName="workingHours">
           </div>
         </div>
 
 
         <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
           <label for="religion">Religion:</label>
-          <div class="input-style">
-            <input type="text" class="form-control" placeholder="C" formControlName="religion">
-          </div>
+          <select class="form-control" formControlName="religion" placeholder="Christian">
+            <option value="Christian"> Christian</option>
+            <option value="Muslim"> Muslim</option>
+            </select>
         </div>
-
         <div class="row submit-button-container">
           <div class="col-md-4">
-            <button class="btn btn-primary submit-button" color="primary" type="submit"
+            <button class="btn btn-primary submit-button" color="primary" type="submit" (click)="onSubmit()"
               >Submit</button>
           </div>
         </div>

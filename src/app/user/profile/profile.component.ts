@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+// import { EmployeeInfo } from 'src/app/models/employeeinfo.ts';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -11,11 +11,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ProfileComponent implements OnInit {
 
-  imageSrc: string | ArrayBuffer;
-  downloadURL: string;
-  selectedFile: any;
-  uploadPercent: Observable<number>;
-  ProfileForm: FormGroup;
 
   countryControl = new FormControl();
   countries = ['Kenya', 'Uganda', 'Tanzania'];
@@ -33,14 +28,7 @@ export class ProfileComponent implements OnInit {
       { type: 'required', message: 'Name is required.' },
     ]
   };
-  href: string;
-  profileReturned: any;
-  x: string[];
-  username: any;
-  erroUsername: string;
-  oldusername: any;
-  usernamParam: string
-  email: string
+
   form: FormGroup;
 
 
@@ -50,8 +38,8 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.form = this.fb.group({
-      country: this.countryControl,
-      // holidayAllowance: new FormControl('', this.validateHolidayAllowance()),
+      country: ['', Validators.required],
+      holidayAllowance: ['', [Validators.required, this.validateHolidayAllowance.bind(this)]]
       // other form controls
   });
   }
@@ -70,7 +58,7 @@ export class ProfileComponent implements OnInit {
       workingHours: [''],
       religion: ['']
   }
-  // , {validator: this.validateHolidayAllowance}
+  , {validator: this.validateHolidayAllowance}
   );
 
   }
@@ -92,78 +80,47 @@ export class ProfileComponent implements OnInit {
     this.form.updateValueAndValidity();
 }
 
-  SetProfileForm(profiled4eturned: any) {
-    this.imageSrc = profiled4eturned.imgurl
-    this.downloadURL = profiled4eturned.imgurl
-    this.ProfileForm.patchValue({
-
-      uname: profiled4eturned.uname,
-      desc: profiled4eturned.desc,
-      name: profiled4eturned.name,
-      email: this.email,
-
-    })
-  }
   onSubmit() {
-    // if (this.form.valid) {
-    //     // Call the API to submit the form data
-    //     this.apiService.submitForm(this.form.value).subscribe(res => {
-    //         console.log(res);
-    //     }, err => {
-    //         console.error(err);
-    //     });
-    // }
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    if (this.form.valid) {
+      const body = {
+      first_name:this.form.value.firstName,
+      last_name:this.form.value.lastName,
+      date_of_birth:this.form.value.dateOfBirth,
+      job_title:this.form.value.jobTitle,
+      company:this.form.value.company,
+      country:this.form.value.country,
+      holiday_allowance: this.form.value.holidayAllowance || 0,
+      id_number: this.form.value.idNumber || 0,
+      working_hours: this.form.value.workingHours || 0,
+      religion: this.form.value.religion || 'Christian',
+      marital_status: this.form.value.maritalStatus || 'Single',
+      number_of_children: this.form.value.numberOfChildren || 0,
+    }
+      this.http.post<any>(
+        'http://127.0.0.1:8000/artisans/', body,{ headers }
+      ).subscribe((response) =>{
+        console.log("here", response);
+        if (response.status === 200){
+          this.router.navigate(["/"])
+        }
+      });
+    }
 }
 
-submitForm(formData: any) {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.post('http://your-backend-url/submit-form', formData, { headers });
+getAllEmployees() {
+  return this.http.get<any>('http://localhost:8000/artisans/');
 }
 
-// validateHolidayAllowance(): Validators {
-//   const country = this.form.get('country').value;
-//     return Validators.compose([
-//         (control: FormControl) => {
-//             if (country === 'Kenya' && control.value < 21) {
-//                 return { 'holidayAllowance': true };
-//             }
-//             if (country === 'Tanzania' && control.value > 30) {
-//                 return { 'holidayAllowance': true };
-//             }
-//             if (country === 'Uganda') {
-//                 return null;
-//             }
-//             return null;
-//         }
-//     ]);
-// }
-
-
-  CreateProfile() {
-    this.ProfileForm = this.fb.group({
-      imgurl: ['', Validators.required],
-      email: [this.email, Validators.required],
-      desc: [''],
-      name: ['', Validators.required],
-      uname: ['', Validators.required,],
-
-
-    });
-
+validateHolidayAllowance(control: FormControl) {
+  const country = this.form.get('country').value;
+  if (country === 'kenya' && control.value < 21) {
+    return { minAllowance: true };
   }
-
-
-  clearError() {
-    this.erroUsername = ""
+  if (country === 'tanzania' && control.value > 30) {
+    return { maxAllowance: true };
   }
+  return null;
+}
 
-
-  redirectTo(url: any) {
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate([url]));
-    setTimeout(() => {
-      window.location.href = "";
-    }, 1000)
-  }
 }

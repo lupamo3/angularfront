@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './Unauthenticated/home/home.component';
 import { UserPostComponent } from './user/user-post/user-post.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { ViewOnlyPublicPostComponent } from './user/view-only-public-post/view-only-public-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -11,7 +10,6 @@ const routes: Routes = [
   { path: 'myprofile', component: ProfileComponent ,pathMatch: 'full'},
 
   { path: 'myprofile/:username/editProfile', component: ProfileComponent },
-  { path: 'myprofile/:username/publicposts', component: ViewOnlyPublicPostComponent},
   { path: 'myposts', redirectTo: 'myposts/allpost', pathMatch: 'full' },
   { path: 'myposts/:type', component: UserPostComponent,pathMatch: 'full'  },
 
