@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-3 col-sm-12">
         <div class="list-group">
-            <a class="list-group-item" [ngClass]="{ active: isAll == true }" [routerLink]="['/myposts', [0]]" (click)="getAllEmployees()">All Employees </a>
+            <a class="list-group-item" [routerLink]="['/myposts', [0]]" (click)="getAllEmployees()">All Artisans </a>
 
-            <a class="list-group-item" [ngClass]="{ active: isPublic == true }" (click)="getAllEmployees()">Kenyan Artisans</a>
+            <a class="list-group-item"  [routerLink]="['/myposts', [0]]" (click)="getKenyanEmployees()">Kenyan Artisans</a>
 
-            <a class="list-group-item" [ngClass]="{ active: isPrivate == true }"  (click)="getAllEmployees()">Ugandan Artisans</a>
+            <a class="list-group-item" [routerLink]="['/myposts', [0]]"  [ngClass]="{ active: isPrivate == true }"  (click)="getUgandanEmployees()">Ugandan Artisans</a>
 
             <a class="list-group-item" [ngClass]="{ active: isPrivate == true }"  (click)="getAllEmployees()">Tanzanian Artisans</a>
         </div>
@@ -55,9 +55,100 @@
                 </a>
             </div>
         </div>
-
     </div>
+<!--
+    <div class="col-md-7 col-sm-12 col-xs-12 post-cards">
+      <div>
+          <div class="card row" *ngFor="let i of data; let c = index">
+              <a [routerLink]="[c]">
 
+                  <div class="col-md-8 col-xs-12 main-content col-md-pull-4">
+                      <p class="first_name">
+                          last name: {{ i.last_name }}
+                      </p>
+
+                      <p class="desc desc1" [innerHTML]="i.desc| noSanitize"></p>
+                  </div>
+                  <div class="author-date col-md-6 col-xs-12">
+                      <p class="first_name">
+                          Name: {{ i.first_name }} {{ i.last_name }}
+                      </p>
+                      <p class="country">
+                          Country: {{ i.country }}
+                      </p>
+                      <p class="holiday_allowance">
+                          Holiday Allowance: {{ i.holiday_allowance }}
+                          </p>
+                      <p class="marital_status">
+                          Marital Status: {{ i.marital_status }}
+                      </p>
+                      <p class="id_number">
+                          ID Number: {{ i.id_number }}
+                      </p>
+                      <p class="working_hours">
+                          Number of Working Hours: {{ i.working_hours }}
+                      </p>
+                      <p class="number_of_children">
+                          Number of Children: {{ i.number_of_children }}
+                        </p>
+                      <p class="author-name">
+                          Religion : {{ i.religion }}
+                      </p>
+                      <p class="date">
+                          Date of Birth : {{ i.date_of_birth | date }}
+                      </p>
+                  </div>
+              </a>
+          </div>
+      </div>
+  </div>
+
+
+      <div class="col-md-7 col-sm-12 col-xs-12 post-cards">
+        <div>
+            <div class="card row" *ngFor="let i of data; let c = index">
+                <a [routerLink]="[c]">
+
+                    <div class="col-md-8 col-xs-12 main-content col-md-pull-4">
+                        <p class="first_name">
+                            last name: {{ i.last_name }}
+                        </p>
+
+                        <p class="desc desc1" [innerHTML]="i.desc| noSanitize"></p>
+                    </div>
+                    <div class="author-date col-md-6 col-xs-12">
+                        <p class="first_name">
+                            Name: {{ i.first_name }} {{ i.last_name }}
+                        </p>
+                        <p class="country">
+                            Country: {{ i.country }}
+                        </p>
+                        <p class="holiday_allowance">
+                            Holiday Allowance: {{ i.holiday_allowance }}
+                            </p>
+                        <p class="marital_status">
+                            Marital Status: {{ i.marital_status }}
+                        </p>
+                        <p class="id_number">
+                            ID Number: {{ i.id_number }}
+                        </p>
+                        <p class="working_hours">
+                            Number of Working Hours: {{ i.working_hours }}
+                        </p>
+                        <p class="number_of_children">
+                            Number of Children: {{ i.number_of_children }}
+                          </p>
+                        <p class="author-name">
+                            Religion : {{ i.religion }}
+                        </p>
+                        <p class="date">
+                            Date of Birth : {{ i.date_of_birth | date }}
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div> -->
 
 
     <div class="col-sm-4 col-xs-12"></div>

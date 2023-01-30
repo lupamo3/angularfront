@@ -13,7 +13,6 @@ import { CrudService } from './Unauthenticated/shared/crud.service';
 import { UserPostComponent } from './user/user-post/user-post.component';
 import { ProfileComponent } from './user/profile/profile.component';
 
-import { LoadingSpinnerComponent } from './spinner/loading-spinner/loading-spinner.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
 
@@ -26,7 +25,6 @@ import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
     HomeComponent,
     UserPostComponent,
     ProfileComponent,
-    LoadingSpinnerComponent,
     NoSanitizePipe
   ],
   imports: [

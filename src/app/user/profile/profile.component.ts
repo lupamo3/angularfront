@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { EmployeeInfo } from 'src/app/models/employeeinfo.ts';
@@ -9,26 +8,45 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
 
-
-  countryControl = new FormControl();
-  countries = ['Kenya', 'Uganda', 'Tanzania'];
-
-
   validation_messages = {
-    'uname': [
-      { type: 'required', message: 'Title is required.' }
+    'firstName': [
+      { type: 'required', message: 'First name is required.' }
     ],
 
-    'email': [
-      { type: 'required', message: 'Category is required.' },
+    'lastName': [
+      { type: 'required', message: 'Last name is required.' },
     ],
     'name': [
       { type: 'required', message: 'Name is required.' },
-    ]
-  };
+    ],
+    'dateOfBirth': [
+      { type: 'required', message: 'Date of birth is required.' },
+    ],
+    'holidayAllowance': [
+      { type: 'required', message: 'Holiday allowance is required.' },
+    ],
+    // 'maritalStatus': [
+    //   { type: 'required', message: 'Marital status is required.' },
+    // ],
+    // 'idNumber': [
+    //   { type: 'required', message: 'ID number is required.' },
+    // ],
+    // 'numberOfChildren': [
+    //   { type: 'required', message: 'Number of children is required.' },
+    // ],
+    // 'workingHours': [
+    //   { type: 'required', message: 'Working hours is required.' },
+    // ],
+    // 'religion': [
+    //   { type: 'required', message: 'Religion is required.' },
+    // ],
+  }
 
+  countryControl = new FormControl();
+  countries = ['Kenya', 'Uganda', 'Tanzania'];
   form: FormGroup;
 
 
@@ -39,8 +57,10 @@ export class ProfileComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       country: ['', Validators.required],
-      holidayAllowance: ['', [Validators.required, this.validateHolidayAllowance.bind(this)]]
-      // other form controls
+      holidayAllowance: new FormControl(null, [
+        Validators.min(21),
+        Validators.max(30)
+      ])
   });
   }
 
@@ -52,13 +72,14 @@ export class ProfileComponent implements OnInit {
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       holidayAllowance: ['', Validators.required],
-      maritalStatus: [''],
-      idNumber: [''],
-      numberOfChildren: [''],
-      workingHours: [''],
-      religion: ['']
+      maritalStatus: ['' , Validators.required],
+      idNumber: ['', Validators.required],
+      numberOfChildren: ['', Validators.required],
+      workingHours: ['', Validators.required],
+      religion: ['', Validators.required]
   }
-  , {validator: this.validateHolidayAllowance}
+  ,
+  //  {validator: this.validateHolidayAllowance}
   );
 
   }
@@ -81,9 +102,9 @@ export class ProfileComponent implements OnInit {
 }
 
   onSubmit() {
+    console.log("here", this.form.value)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    if (this.form.valid) {
-      const body = {
+    const body = {
       first_name:this.form.value.firstName,
       last_name:this.form.value.lastName,
       date_of_birth:this.form.value.dateOfBirth,
@@ -96,31 +117,17 @@ export class ProfileComponent implements OnInit {
       religion: this.form.value.religion || 'Christian',
       marital_status: this.form.value.maritalStatus || 'Single',
       number_of_children: this.form.value.numberOfChildren || 0,
-    }
+  }
+
       this.http.post<any>(
         'http://127.0.0.1:8000/artisans/', body,{ headers }
-      ).subscribe((response) =>{
-        console.log("here", response);
-        if (response.status === 200){
-          this.router.navigate(["/"])
-        }
+      ).subscribe(() =>{
+          this.router.navigate(["/myposts"])
       });
-    }
 }
 
 getAllEmployees() {
   return this.http.get<any>('http://localhost:8000/artisans/');
-}
-
-validateHolidayAllowance(control: FormControl) {
-  const country = this.form.get('country').value;
-  if (country === 'kenya' && control.value < 21) {
-    return { minAllowance: true };
-  }
-  if (country === 'tanzania' && control.value > 30) {
-    return { maxAllowance: true };
-  }
-  return null;
 }
 
 }

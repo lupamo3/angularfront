@@ -49,7 +49,9 @@ export class UserPostComponent implements OnInit {
 
           this.url = params['type']
           if (this.url === 'artisans') {
+            this.getUgandanEmployees()
             this.getAllEmployees()
+            this.getKenyanEmployees()
           }
         });
 
@@ -57,6 +59,25 @@ export class UserPostComponent implements OnInit {
   getAllEmployees() {
     this.http.get('http://127.0.0.1:8000/artisans/').subscribe(data => {
       this.data = data;
+    });
+  }
+
+  getKenyanEmployees() {
+    this.http.get('http://127.0.0.1:8000/artisans/').subscribe(data => {
+      this.data = data;
+      if (this.data['country'] === 'Kenya' || this.data['country'] === 'kenya' || this.data['country'] === 'KE') {
+        this.data = data;
+      }
+    });
+  }
+
+  getUgandanEmployees() {
+    this.http.get('http://127.0.0.1:8000/artisans/').subscribe(data => {
+      this.data = data;
+      if (this.data['country'] === 'uganda') {
+        this.data = data;
+        console.log("showing ugandan employees", this.data)
+      }
     });
   }
 

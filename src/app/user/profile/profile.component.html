@@ -20,35 +20,71 @@
         <div class="form-group">
           <label for="firstName">First Name: </label>
           <div class="input-style">
-            <input class="form-control" type="text" placeholder="first name" formControlName="firstName">
+            <input class="form-control" type="text" placeholder="first name" formControlName="firstName" required>
           </div>
+          <ng-container *ngFor="let validation of validation_messages.firstName">
+            <div class="help-block has-error" *ngIf="form.get('firstName').hasError(validation.type) && (form.get('firstName').dirty || form.get('firstName').touched)">
+                {{validation.message}}</div>
+        </ng-container>
         </div>
 
         <div class="form-group">
           <label for="lastName">Last Name:</label>
           <div class="input-style">
-            <input type="text" class="form-control" type="text" placeholder="last name" formControlName="lastName">
+            <input type="text" class="form-control" type="text" placeholder="last name" formControlName="lastName" required>
           </div>
+          <ng-container *ngFor="let validation of validation_messages.lastName">
+            <div class="help-block has-error" *ngIf="form.get('lastName').hasError(validation.type) && (form.get('lastName').dirty || form.get('lastName').touched)">
+                {{validation.message}}</div>
+        </ng-container>
         </div>
 
         <div class="form-group">
           <label for="dateOfBirth">Date of Birth:</label>
           <div class="input-style">
-            <input type="date" class="form-control" placeholder="date of birth" formControlName="dateOfBirth">
+            <input type="date" class="form-control" placeholder="date of birth" formControlName="dateOfBirth" required>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.dateOfBirth">
+            <div class="help-block has-error" *ngIf="form.get('dateOfBirth').hasError(validation.type) && (form.get('dateOfBirth').dirty || form.get('dateOfBirth').touched)">
+                {{validation.message}}</div>
+        </ng-container>
+        </div>
+
+        <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
+          <label for="holidayAllowance">Holiday Allowance:</label>
+          <div class="input-style">
+            <input type="number" class="form-control" placeholder="1" formControlName="holidayAllowance" required>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.holidayAllowance">
+            <div class="help-block has-error" *ngIf="form.get('holidayAllowance').hasError(validation.type) && (form.get('holidayAllowance').dirty || form.get('holidayAllowance').touched)">
+                {{validation.message}}</div>
+        </ng-container>
+          <ng-container class="help-block has-error" *ngIf="form.get('holidayAllowance').hasError('min') && form.get('holidayAllowance').touched">
+            Minimum holiday allowance is 21 days in Kenya.
+          </ng-container>
+        </div>
+
+        <div class="form-group" *ngIf="form.get('country').value === 'uganda'">
+          <label for="holidayAllowance">Holiday Allowance:</label>
+          <div class="input-style">
+            <input type="number" class="form-control" placeholder="1" formControlName="holidayAllowance" required>
+          </div>
+          <div *ngIf="form.get('holidayAllowance').hasError('max') && form.get('holidayAllowance').touched">
+            Maximum holiday allowance is 30 days in Tanzania.
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="form.get('country').value === 'Tanzania'">
           <label for="holidayAllowance">Holiday Allowance:</label>
           <div class="input-style">
-            <input type="number" class="form-control" placeholder="1" formControlName="holidayAllowance">
+            <input type="number" class="form-control" placeholder="1" formControlName="holidayAllowance" >
           </div>
         </div>
 
 
         <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
           <label for="maritalStatus">Marital Status:</label>
-          <select class="form-control" formControlName="maritalStatus" placeholder="married">
+          <select class="form-control" formControlName="maritalStatus" placeholder="married" >
             <option value="Single"> Single</option>
             <option value="Married"> Married</option>
             </select>
@@ -58,14 +94,14 @@
         <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
           <label for="idNumber">ID Number:</label>
           <div class="input-style">
-            <input type="text" class="form-control" placeholder="10041987" formControlName="idNumber">
+            <input type="text" class="form-control" placeholder="10041987" formControlName="idNumber" >
           </div>
         </div>
 
 
         <div class="form-group" *ngIf="form.get('country').value === 'uganda'">
           <label for="maritalStatus">Marital Status:</label>
-          <select class="form-control" formControlName="maritalStatus" placeholder="Married">
+          <select class="form-control" formControlName="maritalStatus" placeholder="Married" required>
             <option value="Single"> Single</option>
             <option value="Married"> Married</option>
             </select>
@@ -75,7 +111,7 @@
         <div class="form-group" *ngIf="form.get('country').value === 'uganda'">
           <label for="numberOfChildren">Number of Children:</label>
           <div class="input-style">
-            <input type="number" class="form-control" placeholder="1" formControlName="numberOfChildren">
+            <input type="number" class="form-control" placeholder="1" formControlName="numberOfChildren" required>
           </div>
         </div>
 
@@ -83,14 +119,14 @@
         <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
           <label for="workingHours">Working Hours:</label>
           <div class="input-style">
-            <input type="number" class="form-control" placeholder="1" formControlName="workingHours">
+            <input type="number" class="form-control" placeholder="1" formControlName="workingHours" >
           </div>
         </div>
 
 
         <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
           <label for="religion">Religion:</label>
-          <select class="form-control" formControlName="religion" placeholder="Christian">
+          <select class="form-control" formControlName="religion" placeholder="Christian" >
             <option value="Christian"> Christian</option>
             <option value="Muslim"> Muslim</option>
             </select>
