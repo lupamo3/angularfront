@@ -118,12 +118,21 @@ export class ProfileComponent implements OnInit {
       marital_status: this.form.value.maritalStatus || 'Single',
       number_of_children: this.form.value.numberOfChildren || 0,
   }
-
+    if (this.form.valid) {
       this.http.post<any>(
-        'http://127.0.0.1:8000/artisans/', body,{ headers }
-      ).subscribe(() =>{
+        'http://127.0.0.1:8000/artisans/', body,{ headers }).subscribe(() =>{
           this.router.navigate(["/myposts"])
-      });
+    });
+    }
+    else {
+      console.log("invalid form")
+    }
+
+      // this.http.post<any>(
+      //   'http://127.0.0.1:8000/artisans/', body,{ headers }
+      // ).subscribe(() =>{
+      //     this.router.navigate(["/myposts"])
+      // });
 }
 
 getAllEmployees() {
