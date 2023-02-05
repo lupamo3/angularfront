@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } 
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { EmployeeInfo } from 'src/app/models/employeeinfo.ts';
+import * as moment from 'moment';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -28,21 +29,21 @@ export class ProfileComponent implements OnInit {
     'holidayAllowance': [
       { type: 'required', message: 'Holiday allowance is required.' },
     ],
-    // 'maritalStatus': [
-    //   { type: 'required', message: 'Marital status is required.' },
-    // ],
-    // 'idNumber': [
-    //   { type: 'required', message: 'ID number is required.' },
-    // ],
-    // 'numberOfChildren': [
-    //   { type: 'required', message: 'Number of children is required.' },
-    // ],
-    // 'workingHours': [
-    //   { type: 'required', message: 'Working hours is required.' },
-    // ],
-    // 'religion': [
-    //   { type: 'required', message: 'Religion is required.' },
-    // ],
+    'maritalStatus': [
+      { type: 'required', message: 'Marital status is required.' },
+    ],
+    'idNumber': [
+      { type: 'required', message: 'ID number is required.' },
+    ],
+    'numberOfChildren': [
+      { type: 'required', message: 'Number of children is required.' },
+    ],
+    'workingHours': [
+      { type: 'required', message: 'Working hours is required.' },
+    ],
+    'religion': [
+      { type: 'required', message: 'Religion is required.' },
+    ],
   }
 
   countryControl = new FormControl();
@@ -72,11 +73,11 @@ export class ProfileComponent implements OnInit {
       lastName: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       holidayAllowance: ['', Validators.required],
-      maritalStatus: ['' , Validators.required],
-      idNumber: ['', Validators.required],
-      numberOfChildren: ['', Validators.required],
-      workingHours: ['', Validators.required],
-      religion: ['', Validators.required]
+      maritalStatus: [''],
+      idNumber: [''],
+      numberOfChildren: [''],
+      workingHours: [''],
+      religion: ['']
   }
   ,
   //  {validator: this.validateHolidayAllowance}
@@ -94,22 +95,22 @@ export class ProfileComponent implements OnInit {
         this.form.addControl('numberOfChildren', new FormControl());
         this.form.get('holidayAllowance').clearValidators();
     } else if (country === 'Tanzania') {
+        this.form.get('holidayAllowance').setValidators([Validators.required, Validators.max(30)]);
         this.form.addControl('workingHours', new FormControl());
         this.form.addControl('religion', new FormControl());
-        this.form.get('holidayAllowance').setValidators([Validators.required, Validators.max(30)]);
     }
     this.form.updateValueAndValidity();
 }
 
+
   onSubmit() {
     console.log("here", this.form.value)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const date = moment(this.form.value.dateOfBirth).format("DD-MM-YYYY");
     const body = {
       first_name:this.form.value.firstName,
       last_name:this.form.value.lastName,
-      date_of_birth:this.form.value.dateOfBirth,
-      job_title:this.form.value.jobTitle,
-      company:this.form.value.company,
+      date_of_birth:date,
       country:this.form.value.country,
       holiday_allowance: this.form.value.holidayAllowance || 0,
       id_number: this.form.value.idNumber || 0,
@@ -119,6 +120,7 @@ export class ProfileComponent implements OnInit {
       number_of_children: this.form.value.numberOfChildren || 0,
   }
     if (this.form.valid) {
+      console.log("valid form", body)
       this.http.post<any>(
         'http://127.0.0.1:8000/artisans/', body,{ headers }).subscribe(() =>{
           this.router.navigate(["/myposts"])
