@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 // import { EmployeeInfo } from 'src/app/models/employeeinfo.ts';
@@ -46,19 +46,19 @@ export class ProfileComponent implements OnInit {
     ],
   }
 
-  countryControl = new FormControl();
+  countryControl = new UntypedFormControl();
   countries = ['Kenya', 'Uganda', 'Tanzania'];
-  form: FormGroup;
+  form: UntypedFormGroup;
 
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) {
     this.form = this.fb.group({
       country: ['', Validators.required],
-      holidayAllowance: new FormControl(null, [
+      holidayAllowance: new UntypedFormControl(null, [
         Validators.min(21),
         Validators.max(30)
       ])
@@ -87,17 +87,17 @@ export class ProfileComponent implements OnInit {
   onCountryChange() {
     const country = this.form.get('country').value;
     if (country === 'Kenya') {
-        this.form.addControl('idNumber', new FormControl());
-        this.form.addControl('maritalStatus', new FormControl());
+        this.form.addControl('idNumber', new UntypedFormControl());
+        this.form.addControl('maritalStatus', new UntypedFormControl());
         this.form.get('holidayAllowance').setValidators([Validators.required, Validators.min(21)]);
     } else if (country === 'Uganda') {
-        this.form.addControl('maritalStatus', new FormControl());
-        this.form.addControl('numberOfChildren', new FormControl());
+        this.form.addControl('maritalStatus', new UntypedFormControl());
+        this.form.addControl('numberOfChildren', new UntypedFormControl());
         this.form.get('holidayAllowance').clearValidators();
     } else if (country === 'Tanzania') {
         this.form.get('holidayAllowance').setValidators([Validators.required, Validators.max(30)]);
-        this.form.addControl('workingHours', new FormControl());
-        this.form.addControl('religion', new FormControl());
+        this.form.addControl('workingHours', new UntypedFormControl());
+        this.form.addControl('religion', new UntypedFormControl());
     }
     this.form.updateValueAndValidity();
 }
