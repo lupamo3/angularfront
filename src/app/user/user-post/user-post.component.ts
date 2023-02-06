@@ -26,6 +26,8 @@ export class UserPostComponent implements OnInit {
   searchText;
   data: Object;
   providers: [DatePipe]
+  ugandanEmployees: any;
+  employees: any[];
 
 
   constructor(
@@ -52,6 +54,7 @@ export class UserPostComponent implements OnInit {
             this.getUgandanEmployees()
             this.getAllEmployees()
             this.getKenyanEmployees()
+            this.getTanzanianEmployees()
           }
         });
 
@@ -65,21 +68,28 @@ export class UserPostComponent implements OnInit {
   getKenyanEmployees() {
     this.http.get('http://127.0.0.1:8000/artisans/').subscribe(data => {
       this.data = data;
-      if (this.data['country'] === 'Kenya' || this.data['country'] === 'kenya' || this.data['country'] === 'KE') {
-        this.data = data;
-      }
+      this.employees = Object.values(this.data);
+      this.data = this.employees.filter(employee => employee.country === 'kenya' || employee.country === 'Kenya' || employee.country === 'KE');
     });
   }
+
 
   getUgandanEmployees() {
     this.http.get('http://127.0.0.1:8000/artisans/').subscribe(data => {
       this.data = data;
-      if (this.data['country'] === 'uganda') {
-        this.data = data;
-        console.log("showing ugandan employees", this.data)
-      }
+      this.employees = Object.values(this.data);
+      this.data = this.employees.filter(employee => employee.country === 'uganda');
     });
   }
+
+  getTanzanianEmployees() {
+    this.http.get('http://127.0.0.1:8000/artisans/').subscribe(data => {
+      this.data = data;
+      this.employees = Object.values(this.data);
+      this.data = this.employees.filter(employee => employee.country === 'tanzania');
+    });
+  }
+
 
 
 

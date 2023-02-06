@@ -7,7 +7,7 @@
 
             <a class="list-group-item" [routerLink]="['/myposts', [0]]"  [ngClass]="{ active: isPrivate == true }"  (click)="getUgandanEmployees()">Ugandan Artisans</a>
 
-            <a class="list-group-item" [ngClass]="{ active: isPrivate == true }"  (click)="getAllEmployees()">Tanzanian Artisans</a>
+            <a class="list-group-item" [routerLink]="['/myposts', [0]]"  [ngClass]="{ active: isPrivate == true }"  (click)="getTanzanianEmployees()">Tanzanian Artisans</a>
         </div>
     </div>
 

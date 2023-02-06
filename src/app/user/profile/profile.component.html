@@ -92,7 +92,7 @@
 
         <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
           <label for="maritalStatus">Marital Status:</label>
-          <select class="form-control" formControlName="maritalStatus" placeholder="married" >
+          <select class="form-control" formControlName="maritalStatus" placeholder="married" required>
             <option value="Single"> Single</option>
             <option value="Married"> Married</option>
             </select>
@@ -102,7 +102,10 @@
         <div class="form-group" *ngIf="form.get('country').value === 'kenya'">
           <label for="idNumber">ID Number:</label>
           <div class="input-style">
-            <input type="text" class="form-control" placeholder="10041987" formControlName="idNumber" >
+            <input type="number" class="form-control" placeholder="10041987" formControlName="idNumber" required>
+          </div>
+          <div *ngIf="form.get('idNumber').hasError('required') && form.get('idNumber').touched">
+            ID Number Input is required.
           </div>
         </div>
 
@@ -121,13 +124,19 @@
           <div class="input-style">
             <input type="number" class="form-control" placeholder="1" formControlName="numberOfChildren" required>
           </div>
+          <div *ngIf="form.get('numberOfChildren').hasError('required') && form.get('numberOfChildren').touched">
+            Number of Children Input is required.
+          </div>
         </div>
 
 
         <div class="form-group" *ngIf="form.get('country').value === 'tanzania'">
           <label for="workingHours">Working Hours:</label>
           <div class="input-style">
-            <input type="number" class="form-control" placeholder="1" formControlName="workingHours" >
+            <input type="number" class="form-control" placeholder="1" formControlName="workingHours" required >
+          </div>
+          <div *ngIf="form.get('workingHours').hasError('required') && form.get('workingHours').touched">
+            Working Hours Input is required.
           </div>
         </div>
 
@@ -141,7 +150,7 @@
         </div>
         <div class="row submit-button-container">
           <div class="col-md-4">
-            <button class="btn btn-primary submit-button" color="primary" type="submit" (click)="onSubmit()"
+            <button class="btn btn-primary submit-button" color="primary" type="submit" (click)="onSubmit()" [disabled]="!form.valid"
               >Submit</button>
           </div>
         </div>

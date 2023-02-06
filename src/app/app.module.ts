@@ -1,32 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgModule } from "@angular/core";
+import { AppRoutingModule } from "./app-routing.module";
+import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
+import { AppComponent } from "./app.component";
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './Unauthenticated/home/home.component';
-
-import { CrudService } from './Unauthenticated/shared/crud.service';
-import { UserPostComponent } from './user/user-post/user-post.component';
-import { ProfileComponent } from './user/profile/profile.component';
+import { UserPostComponent } from "./user/user-post/user-post.component";
+import { ProfileComponent } from "./user/profile/profile.component";
 
 import { ToastrModule } from 'ngx-toastr';
-import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
-
-
-
-
+import { NoSanitizePipe } from "./Authentication/shared/no-sanitize.pipe";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     UserPostComponent,
     ProfileComponent,
-    NoSanitizePipe
+    NoSanitizePipe,
   ],
   imports: [
     BrowserModule,
@@ -35,10 +27,8 @@ import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
-
+    ToastrModule.forRoot(),
   ],
-  providers: [CrudService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -104,7 +104,6 @@ export class ProfileComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("here", this.form.value)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const date = moment(this.form.value.dateOfBirth).format("DD-MM-YYYY");
     const body = {
@@ -120,7 +119,6 @@ export class ProfileComponent implements OnInit {
       number_of_children: this.form.value.numberOfChildren || 0,
   }
     if (this.form.valid) {
-      console.log("valid form", body)
       this.http.post<any>(
         'http://127.0.0.1:8000/artisans/', body,{ headers }).subscribe(() =>{
           this.router.navigate(["/myposts"])
@@ -129,12 +127,6 @@ export class ProfileComponent implements OnInit {
     else {
       console.log("invalid form")
     }
-
-      // this.http.post<any>(
-      //   'http://127.0.0.1:8000/artisans/', body,{ headers }
-      // ).subscribe(() =>{
-      //     this.router.navigate(["/myposts"])
-      // });
 }
 
 getAllEmployees() {
